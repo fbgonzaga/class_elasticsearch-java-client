@@ -4,6 +4,9 @@ import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.query_dsl.MatchQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
+import co.elastic.clients.elasticsearch.core.search.Highlight;
+import co.elastic.clients.elasticsearch.core.search.HighlightField;
+import co.elastic.clients.elasticsearch.core.search.HighlighterType;
 import co.elastic.clients.json.jackson.JacksonJsonpMapper;
 import co.elastic.clients.transport.ElasticsearchTransport;
 import co.elastic.clients.transport.rest_client.RestClientTransport;
@@ -20,6 +23,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Component
@@ -64,16 +69,24 @@ public class EsClient {
     }
 
     public SearchResponse search(String query, Integer page) {
+        //Highlight
+        Map<String, HighlightField> map = new HashMap<>();
+        map.put("content", HighlightField.of(hf -> hf.numberOfFragments(1).fragmentSize(300)));
+        Highlight highlight = Highlight.of(
+            h -> h.type(HighlighterType.Unified)
+                .fields(map)
+        );
+
+        //Query
         Query matchQuery = MatchQuery.of(
                 q -> q.field("content").query(query))
             ._toQuery();
 
         SearchResponse<ObjectNode> response;
-
         try {
             response = elasticsearchClient.search(s -> s
                 .index("wikipedia").from(PAGE_SIZE * (page - 1)).size(PAGE_SIZE)
-                .query(matchQuery), ObjectNode.class
+                .query(matchQuery).highlight(highlight), ObjectNode.class
             );
         } catch (IOException e) {
             throw new RuntimeException(e);

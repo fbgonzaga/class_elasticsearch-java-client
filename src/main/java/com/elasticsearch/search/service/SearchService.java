@@ -40,7 +40,7 @@ public class SearchService {
             .map(
                 h ->
                     new Result()
-                        .abs(treatContent(h.source().get("content").asText()))
+                        .abs(treatContent(h.highlight().get("content").get(0)))
                         .title(h.source().get("title").asText())
                         .url(h.source().get("url").asText())
                 ).collect(Collectors.toList());
@@ -48,8 +48,8 @@ public class SearchService {
     }
 
     private String treatContent(String content) {
-        content = content.replaceAll("</?(som|math)\\d*>", "");
-        content = content.replaceAll("[^A-Za-z\\s]+", "");
+        content = content.replaceAll("</?(som|math)\\d*>", " ");
+        content = content.replaceAll("[^A-Za-z\\s</>]+", " ");
         content = content.replaceAll("\\s+", " ");
         content = content.replaceAll("^\\s+", "");
         return content;
