@@ -1,0 +1,8 @@
+/home/flavio/Elasticsearch_app/search/target/generated-sources/openapi/src/main/java/com/elasticsearch/search/api/facade/SearchApi.java
+/home/flavio/Elasticsearch_app/search/src/main/java/com/elasticsearch/search/domain/EsClient.java
+/home/flavio/Elasticsearch_app/search/src/main/java/com/elasticsearch/search/controller/SearchController.java
+/home/flavio/Elasticsearch_app/search/src/main/java/com/elasticsearch/search/SearchApplication.java
+/home/flavio/Elasticsearch_app/search/src/main/java/com/elasticsearch/search/service/SearchService.java
+/home/flavio/Elasticsearch_app/search/target/generated-sources/openapi/src/main/java/com/elasticsearch/search/api/facade/ApiUtil.java
+/home/flavio/Elasticsearch_app/search/target/generated-sources/openapi/src/main/java/com/elasticsearch/search/api/model/Error.java
+/home/flavio/Elasticsearch_app/search/target/generated-sources/openapi/src/main/java/com/elasticsearch/search/api/model/Result.java

@@ -1,0 +1,15 @@
+# =================================
+# = Server
+# =================================
+server:
+  port: 8080
+  servlet:
+    context-path: /v1
+
+# =================================
+# = Elasticsearch
+# =================================
+elasticsearch:
+  connection:
+    username: elastic
+    password: flavio123
